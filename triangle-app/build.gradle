@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    implementation project(':triangle-service-lib')
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.company.application.TriangleApplication',
+        )
+    }
+}
+
+task fatJar(type: Jar) {
+    dependsOn build
+    manifest.from jar.manifest
+    classifier = 'fat'
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+    with jar
+}
+
+task thinJar(type: Jar) {
+    dependsOn build
+    manifest.from jar.manifest
+    classifier = 'thin'
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : it }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+    with jar
+}

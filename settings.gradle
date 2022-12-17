@@ -1,0 +1,4 @@
+rootProject.name = 'triangleApp'
+include 'triangle-app'
+include 'triangle-service-lib'
+

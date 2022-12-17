@@ -1,0 +1,12 @@
+
+* text=auto
+
+*.txt text
+*.java text diff=java
+*.ts text diff=ts
+*.xml text diff=xml
+*.sh text eol=lf
+*.bat text eol=crlf
+
+*.png binary
+*.jpg binary
